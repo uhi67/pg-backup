@@ -8,7 +8,7 @@ Example usage
 
 ```yml
   backup:
-    image: uhi67/pg-backup:latest
+    image: ghcr.io/uhi67/pg-backup:main
     restart: unless-stopped
     volumes:
       - ./docker-data/backup:/var/backup
@@ -16,12 +16,14 @@ Example usage
       APP_DB_HOST: db
       APP_DB_PORT: 5432
       APP_DB_USER: $APP_DB_USER
-      APP_DB_PASSWORD: $APP_DB_PASSWORD
+      APP_DB_PASSWORD_FILE: "/run/secrets/app_db_password"
       APP_DB_NAME: $APP_DB_NAME
       APP_BACKUP_DIR: /var/backup
       CRON_SCHEDULE: "*\\/15 * * * *" # Note: slashes must be escaped
     networks:
       - app
+    secrets:
+      - app_db_password
 ```
 
 Development informations

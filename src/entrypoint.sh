@@ -3,6 +3,13 @@
 # Terminate execution if any command fails
 set -e
 
+if [ "$APP_DB_PASSWORD" == "" ]; then
+  export APP_DB_PASSWORD=$(cat $APP_DB_PASSWORD_FILE)
+fi
+if [ "$APP_DB_PASSWORD" == "" ]; then
+  echo "Warning: no password is set in APP_DB_PASSWORD neither APP_DB_PASSWORD_FILE ($APP_DB_PASSWORD_FILE)"
+fi
+
 # Replace cron schedule from environment
 if [ "$CRON_SCHEDULE" = "" ]; then
     CRON_SCHEDULE="21 1 * * *"

@@ -4,15 +4,18 @@
 #      APP_DB_PORT
 #      APP_DB_NAME
 #      APP_DB_USER
-#      APP_DB_PASSWORD
+#      APP_DB_PASSWORD or APP_DB_PASSWORD_FILE
 #      APP_BACKUP_DIR
+
+if [ "$APP_DB_PASSWORD" == "" ]; then
+  export APP_DB_PASSWORD=$(cat $APP_DB_PASSWORD_FILE)
+fi
 
 echo "$APP_DB_HOST:*:*:$APP_DB_USER:$APP_DB_PASSWORD" > ~/.pgpass
 
-if [ "$APP_DB_NAME" == "" ]
-then
- echo "Error: No database defined !"
- exit 1
+if [ "$APP_DB_NAME" == "" ]; then
+  echo "Error: No database defined !"
+  exit 1
 fi
 TIMESTAMP=`date "+%Y-%m-%d_%H-%M-%S"`
 export PGPASSWORD="$APP_DB_PASSWORD"
@@ -25,4 +28,4 @@ echo "Backup finished successfully."
 exit 0
 
 # Restore
-# gzip -d "$APP_BACKUP_DIR/$APP_DB_NAME-$TIMESTAMP".gz | psql -h $APP_DB_HOST -p $APP_DB_PORT -u $APP_DB_USER -w
+# gzip -d "$APP_BACKUP_DIR"/<filename>.gz | psql -h $APP_DB_HOST -p $APP_DB_PORT -U $APP_DB_USER
