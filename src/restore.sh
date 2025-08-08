@@ -34,5 +34,5 @@ else
     exit 3
   fi
   echo "Restoring database $1..."
-  gzip -d "$APP_BACKUP_DIR"/$1 | psql -h $APP_DB_HOST -p $APP_DB_PORT -U $APP_DB_USER -d $APP_DB_NAME -w
+  gzip -d -c "$APP_BACKUP_DIR"/$1 | psql -h $APP_DB_HOST -p $APP_DB_PORT -U $APP_DB_USER -d $APP_DB_NAME -w
 fi
