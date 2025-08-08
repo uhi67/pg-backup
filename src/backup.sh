@@ -26,6 +26,3 @@ mv "$APP_BACKUP_DIR/$APP_DB_NAME-$TIMESTAMP.tmp" "$APP_BACKUP_DIR/$APP_DB_NAME-$
 cp "$APP_BACKUP_DIR/$APP_DB_NAME-$TIMESTAMP.log" "$APP_BACKUP_DIR/$APP_DB_NAME-last.log"
 echo "Backup finished successfully."
 exit 0
-
-# Restore
-# gzip -d "$APP_BACKUP_DIR"/<filename>.gz | psql -h $APP_DB_HOST -p $APP_DB_PORT -U $APP_DB_USER

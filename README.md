@@ -1,7 +1,7 @@
 pg-backup
 =========
 
-A side-car container to backup PostgreSQL database
+A side-car container to backup and restore PostgreSQL database.
 
 Example usage
 -------------
@@ -25,6 +25,12 @@ Example usage
     secrets:
       - app_db_password
 ```
+
+Restoring can be done manually by running the following command:
+
+`restore.sh <filename>`
+
+The backup file to restore must be in the backup directory defined by the `APP_BACKUP_DIR` environment variable.
 
 Development informations
 -------------------------
